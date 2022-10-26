@@ -1,59 +1,48 @@
 #include "search_algos.h"
 
 /**
- * binary_search - function that search a value
- * @array: function pointing to array
- * @size: size of array
- * @value: value to search for
- *
- * Return: i or -1
- *
- */
-
+  * binary_search - binary search
+  * @array: pointer to first element in search array
+  * @size: size of array
+  * @value: value to find
+  *
+  * Return: index where found or -1
+  */
 int binary_search(int *array, size_t size, int value)
 {
-	size_t first = 0;
-	size_t last = size - 1;
-	size_t medium = 0;
+	int  left, right, pivot;
 
 	if (array == NULL)
 		return (-1);
-
-	for (; first <= last;)
+	left = 0;
+	right = size - 1;
+	while (left <= right)
 	{
-		binary_print(array, first, last);
-		medium = (first + last) / 2;
-		if (array[medium] > value)
-		{
-			last = medium - 1;
-		}
-		else if (array[medium] < value)
-		{
-			first = medium + 1;
-		}
+		print_array(array, left, right);
+		pivot = (left + right) / 2;
+		if (array[pivot] > value)
+			right = pivot - 1;
+		else if (array[pivot] < value)
+			left = pivot + 1;
 		else
-			return (medium);
+			return (pivot);
 	}
 	return (-1);
 }
 
-
 /**
- * binary_print - function that print a array
- * @array: pointer to array
- * @first: first position in the array
- * @last: last position in the array
- *
- * Return: void
- *
- */
+  * print_array - print array
+  * @array: array
+  * @left: starting print
+  * @right: ending print
+  */
 
-void binary_print(int *array, int first, int last)
+void print_array(int *array, int left, int right)
 {
+	int i;
+
 	printf("Searching in array: ");
-	for (; first < last; first++)
-	{
-		printf("%d, ", array[first]);
-	}
-	printf("%d\n", array[first]);
+	for (i = left; i < right; i++)
+		printf("%d, ", array[i]);
+	printf("%d\n", array[i]);
 }
